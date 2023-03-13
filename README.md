@@ -73,7 +73,7 @@ A példa projekthez kiválasztott XSLT és FO processzorok helyett alkalmazható
 A szükséges telepítő állományok itt érhetők el.
 
 
-[Saxon XSLT and XQuery Processor v11 HE (Home edition)] (https://www.saxonica.com/download/download_page.xml)
+[Saxon XSLT and XQuery Processor v11 HE](https://www.saxonica.com/download/download_page.xml)
 
 
 [Apache™ FOP](https://xmlgraphics.apache.org/fop/download.html)
