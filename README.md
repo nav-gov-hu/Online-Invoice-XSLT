@@ -1,7 +1,5 @@
 # Online-Invoice-XSLT
 
-`scroll down for English version`
-
 Üdvözöljük az Online Számla adatok képi megjelenítését biztosító XSLT projekt publikus tárhelyén!
 
 ## 1) A tárhely tartalma és célja
