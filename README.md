@@ -84,6 +84,7 @@ A szükséges konfigurációk elvégzése után lehetőség van a dokumentum gen
 Figyelni kell rá, hogy PDF és HTML kimenethez eltérő XSLT fájlt kell használni!
 
 PDF  -> InvoiceDataTemplate_XSLT_FO.xslt
+
 HTML -> InvoiceDataTemplate_XSLT_HTML.xslt 
 
 Az XSLT állomány-ban a nyelvet a $lang paraméter által vezéreljük. A $lang paraméter elfogadott értékei: 'HU', 'EN', 'DE', ezzel lehet a kimenet nyelvét beállítani. A parancssorban a filepath-ok megadhatók abszolút vagy relatív formában is, a lényeg hogy a hivatkozott XML és XSLT, valamint jar fájlok az útvonalon megtalálhatók és futtathatók legyenek.
