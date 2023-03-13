@@ -45,7 +45,7 @@ A templatek tartalmaznak alapértelmezett formázásokat. Ezek közül a font si
 - output orientation: portrait
 - output size: A4 (210 x 297 mm)
 - margins
-	- colomun gap: 12mm
+	- coloumn gap: 12mm
 	- margin body from page bottom: 20mm
 	- margin body from page left: 10mm
 	- margin body from page right: 10mm
@@ -64,13 +64,11 @@ A programot le kell tölteni a tárhelyről, ami ezt követően egyszerű végre
 Indítás után a grafikus felületen be kell tallózni azt az invoiceData XML fájlt, amelynek a tartalmát meg szeretnénk jeleníteni, valamint ki kell választani a kért nyelvet valamint formátumot.
 A program ezt követően a társított PDF vagy HTML olvasó alkalmazással megjeleníti az elkészült dokumentumot. Ezt a módozatot azoknak az üzleti felhasználóknak ajánljuk, akik nem akarják az általuk használt szoftverbe belefejlesztetni az XSLT integrációját, de a megjelenítési szolgáltatást szeretnék igénybe venni.
 
-2)Java alapú Lightweight CLI integráció. 
-
+2) Java alapú Lightweight CLI integráció. 
 Az integrációhoz szükség van egy XSLT engine-re (HTML kimenet esetén), és ezen kívül egy FO processzorra, ha PDF-et is akarunk generálni.
 
-
 ### Figyelem!!!
-A példa projekthez kiválasztott XSLT és FO processzorok helyett alkalmazható más ugyanolyan értékű és tudású processzor is, megfelelő konfiguráció mellett. 
+A példa projekthez kiválasztott XSLT és FO processzorok helyett alkalmazható más ugyanolyan értékű és tudású (XSLT 2.0 compliant) processzor is, megfelelő konfiguráció mellett. 
 
 A szükséges telepítő állományok itt érhetők el.
 
