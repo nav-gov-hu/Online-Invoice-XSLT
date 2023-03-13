@@ -1,0 +1,14 @@
+<fop version="1.0">
+ <base>..</base>
+ <font-base>../../../</font-base>
+    <renderers>
+        <renderer mime="application/pdf">
+            <fonts>
+               <font embed-url="font/tahoma.ttf" kerning="yes" sub-font="Tahoma">
+				<font-triplet name="Tahoma" style="normal" weight="normal"/>
+				<font-triplet name="Tahoma" style="normal" weight="bold"/>
+				</font>
+            </fonts>
+        </renderer>
+    </renderers>
+</fop>
