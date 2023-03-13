@@ -1,2 +1,2 @@
 # Online-Invoice-XSLT
-Online Invoice XML file XSLT transformation
+Online Invoice XML file XSLT transformation client
