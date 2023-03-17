@@ -55,6 +55,8 @@ A templatek tartalmaznak alapértelmezett formázásokat. Ezek közül a font si
 - page height: 297 mm
 - page width: 210 mm
 
+![Oldal tulajdonságok](https://github.com/nav-gov-hu/Online-Invoice-XSLT/blob/master/img/Page%20properties.png)
+
 ### 1.5) Integrációk
 
 Az eltérő fejlesztői igényekhez és felhasználási körökhöz igazodva többféle integrációs lehetőséget is biztosítunk.
