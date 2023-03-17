@@ -1,9 +1,6 @@
 # Hozzájárulás a projekthez
 
-<<readme-en,English version>> 
-
-[%readme-hu]
-:sectnums:
+[English version](#contributing-to-the-project)
 
 A projekthez bárki szabadon hozzájárulhat tudástár (wiki) vagy fejlesztési ötlet, javaslat hozzáadásával akár szöveges megjegyzés (issue) akár kód (pull request) formájában. A hozzájáruláskor a hozzájáruló automatikusan elfogadja a projekt licensz (MIT) által meghatározott feltételeket.
 
@@ -74,8 +71,7 @@ A `[változtatások tömören]` postfix tartalmazza azon üzleti igényt, amire 
 Nem helyesek a többértelmű, túl általános megfogalmazások (pl: számlafej adatok módosítása), ezeket lehetőség szerint kerüljük.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-:sectnums!:
-[[readme-en]]
+
 # Contributing to the project
 
 Anyone is free to contribute to the project by posting a knowledge base (wiki) entry, or a development idea or suggestion, either in the form of a text comment (issue) or as code (pull request). All contributors will be considered to have automatically accepted the terms of the project license (MIT).
