@@ -161,7 +161,7 @@ A projektben feature request és általános kérdés feladásra, valamint az XS
 
 ## 3) Hogyan tudok a projekthez hozzájárulni?
 
-A projekt alatt wiki és pull request feladási lehetőség van. 
+A projekt alatt wiki és pull request feladási lehetőség van. A részletekről tájékoztatás a [CONTRIBUTING.md](https://github.com/nav-gov-hu/Online-Invoice-XSLT/blob/master/CONTRIBUTING.md) fájlban található.
 
 ## 4) Nyelvhasználat
 
