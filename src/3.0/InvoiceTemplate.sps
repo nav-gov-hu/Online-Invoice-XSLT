@@ -1034,14 +1034,14 @@
 													</tgrid>
 												</children>
 											</paragraph>
-											<condition>
+											<paragraph>
+												<styles padding-top="5mm"/>
 												<children>
-													<conditionbranch xpath="exists(n1:conventionalInvoiceInfo)">
+													<condition>
 														<children>
-															<paragraph>
-																<styles padding-top="5mm"/>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:orderNumbers)">
 																<children>
-																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
+																	<tgrid hidecols="when-body-empty" hiderows="when-body-empty" tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
 																		<children>
@@ -1113,6 +1113,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:deliveryNotes)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1185,6 +1193,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:shippingDates)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1257,6 +1273,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:contractNumbers)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1329,6 +1353,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:supplierCompanyCodes)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1401,6 +1433,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:customerCompanyCodes)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1473,6 +1513,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:dealerCodes)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1545,6 +1593,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:costCenters)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1617,6 +1673,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:projectNumbers)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1689,6 +1753,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:generalLedgerAccountNumbers)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1761,6 +1833,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:glnNumbersSupplier)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1833,6 +1913,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:glnNumbersCustomer)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1905,6 +1993,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:materialNumbers)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -1977,6 +2073,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:itemNumbers)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -2049,6 +2153,14 @@
 																			<children/>
 																		</wizard-data-columns>
 																	</tgrid>
+																</children>
+															</conditionbranch>
+														</children>
+													</condition>
+													<condition>
+														<children>
+															<conditionbranch xpath="exists(n1:conventionalInvoiceInfo/n1:ekaerIds)">
+																<children>
 																	<tgrid tablegen-filter-periods-to-month="12" tablegen-filter-periods-to-day="31">
 																		<properties border="1"/>
 																		<styles border-collapse="collapse" border-style="none"/>
@@ -2122,11 +2234,11 @@
 																		</wizard-data-columns>
 																	</tgrid>
 																</children>
-															</paragraph>
+															</conditionbranch>
 														</children>
-													</conditionbranch>
+													</condition>
 												</children>
-											</condition>
+											</paragraph>
 											<condition>
 												<children>
 													<conditionbranch xpath="exists(n1:additionalInvoiceData)">
@@ -3364,7 +3476,7 @@
 																														<children>
 																															<template subtype="element" match="n1:customerDeclaration">
 																																<children>
-																																	<calltemplate subtype="named" match="ProduktStreamTemplate_C5X">
+																																	<calltemplate subtype="named" match="ProductStreamTemplate_C5X">
 																																		<parameters/>
 																																	</calltemplate>
 																																</children>
@@ -4143,23 +4255,6 @@
 																								</children>
 																							</tgridcell>
 																							<tgridcell joinleft="1">
-																								<styles border-style="none"/>
-																							</tgridcell>
-																							<tgridcell joinleft="1">
-																								<styles border-style="none"/>
-																							</tgridcell>
-																						</children>
-																					</tgridrow>
-																					<tgridrow conditional-processing="exists(n1:productFeeClause)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
-																						<children>
-																							<tgridcell>
-																								<styles border-style="none"/>
-																							</tgridcell>
-																							<tgridcell joinleft="1">
-																								<styles border-style="none"/>
-																							</tgridcell>
-																							<tgridcell>
 																								<styles border-style="none"/>
 																							</tgridcell>
 																							<tgridcell joinleft="1">
@@ -11847,7 +11942,7 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 					</condition>
 				</children>
 			</globaltemplate>
-			<globaltemplate subtype="named" match="ProduktStreamTemplate_C5X">
+			<globaltemplate subtype="named" match="ProductStreamTemplate_C5X">
 				<parameters/>
 				<children>
 					<condition>
