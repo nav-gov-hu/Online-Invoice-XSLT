@@ -511,10 +511,10 @@
 					</xsl:variable>
 					<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
 				</div>
-				<xsl:if test="exists(n1:conventionalInvoiceInfo)">
-					<div style="padding-top:5mm; ">
+				<div style="padding-top:5mm; ">
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:orderNumbers)">
 						<xsl:variable name="altova:table">
-							<table style="border-collapse:collapse; border-style:none; " border="1">
+							<table style="border-collapse:collapse; border-style:none; " border="1" altova:hide-rows="body-empty" altova:hide-cols="body-empty">
 								<xsl:variable name="altova:CurrContextGrid_2" select="."/>
 								<xsl:variable name="altova:ColumnData"/>
 								<tbody>
@@ -539,7 +539,16 @@
 						</xsl:variable>
 						<xsl:variable name="altova:col-count" select="sum( for $altova:cell in $altova:table/table/(thead | tbody | tfoot)[ 1 ]/tr[ 1 ]/(th | td) return altova:col-span( $altova:cell ) )" xpath-default-namespace=""/>
 						<xsl:variable name="altova:TableIndexInfo" select="altova:BuildTableIndexInfo($altova:table)"/>
-						<xsl:variable name="altova:generate-cols" as="xs:boolean*" select="for $altova:pos in 1 to $altova:col-count return true()"/>
+						<xsl:variable name="altova:generate-cols" as="xs:boolean*" xpath-default-namespace="">
+							<xsl:choose>
+								<xsl:when test="$altova:table/table/@altova:hide-cols = 'empty'">
+									<xsl:sequence select="for $altova:pos in 1 to $altova:col-count return some $altova:cell in $altova:table/table/(thead | tbody | tfoot)/tr/(th | td)[ altova:col-position(., $altova:TableIndexInfo) = $altova:pos ] satisfies not( altova:is-cell-empty( $altova:cell ) )"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:sequence select="for $altova:pos in 1 to $altova:col-count return not( exists( $altova:table/table/tbody/tr/td[ altova:col-position(., $altova:TableIndexInfo) = $altova:pos ] ) ) or ( some $altova:cell in $altova:table/table/tbody/tr/td[ altova:col-position(., $altova:TableIndexInfo) = $altova:pos ] satisfies not( altova:is-cell-empty( $altova:cell ) ) )"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
 						<xsl:variable name="altova:nodeTableWithoutUnwantedParts">
 							<xsl:apply-templates select="$altova:table" mode="altova:generate-table">
 								<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
@@ -547,6 +556,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:deliveryNotes)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_3" select="."/>
@@ -581,6 +592,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:shippingDates)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_4" select="."/>
@@ -615,6 +628,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:contractNumbers)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_5" select="."/>
@@ -649,6 +664,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:supplierCompanyCodes)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_6" select="."/>
@@ -683,6 +700,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:customerCompanyCodes)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_7" select="."/>
@@ -717,6 +736,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:dealerCodes)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_8" select="."/>
@@ -751,6 +772,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:costCenters)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_9" select="."/>
@@ -785,6 +808,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:projectNumbers)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_10" select="."/>
@@ -819,6 +844,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:generalLedgerAccountNumbers)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_11" select="."/>
@@ -853,6 +880,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:glnNumbersSupplier)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_12" select="."/>
@@ -887,6 +916,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:glnNumbersCustomer)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_13" select="."/>
@@ -921,6 +952,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:materialNumbers)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_14" select="."/>
@@ -955,6 +988,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:itemNumbers)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_15" select="."/>
@@ -989,6 +1024,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:ekaerIds)">
 						<xsl:variable name="altova:table">
 							<table style="border-collapse:collapse; border-style:none; " border="1">
 								<xsl:variable name="altova:CurrContextGrid_16" select="."/>
@@ -1023,8 +1060,8 @@
 							</xsl:apply-templates>
 						</xsl:variable>
 						<xsl:sequence select="$altova:nodeTableWithoutUnwantedParts"/>
-					</div>
-				</xsl:if>
+					</xsl:if>
+				</div>
 				<xsl:if test="exists(n1:additionalInvoiceData)">
 					<div style="padding-top:5mm; word-break:normal; word-wrap:break-word; ">
 						<xsl:variable name="altova:table">
@@ -1619,7 +1656,7 @@
 															<br/>
 															<xsl:for-each select="n1:productFeeClause">
 																<xsl:for-each select="n1:customerDeclaration">
-																	<xsl:call-template name="ProduktStreamTemplate_C5X"/>
+																	<xsl:call-template name="ProductStreamTemplate_C5X"/>
 																</xsl:for-each>
 															</xsl:for-each>
 														</xsl:when>
@@ -2038,15 +2075,6 @@
 														</xsl:for-each>
 													</xsl:for-each>
 												</td>
-											</tr>
-										</xsl:when>
-										<xsl:otherwise/>
-									</xsl:choose>
-									<xsl:choose>
-										<xsl:when test="exists(n1:productFeeClause)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
-												<td colspan="2" style="border-style:none; width:47.5mm; "/>
-												<td colspan="2" style="border-style:none; width:47.5mm; "/>
 											</tr>
 										</xsl:when>
 										<xsl:otherwise/>
@@ -7340,7 +7368,7 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template name="ProduktStreamTemplate_C5X">
+	<xsl:template name="ProductStreamTemplate_C5X">
 		<xsl:choose>
 			<xsl:when test="n1:productStream = &apos;BATTERY&apos;">
 				<xsl:choose>
@@ -7542,6 +7570,17 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 		<xsl:param name="altova:node" as="element()"/>
 		<xsl:sequence select="every $altova:child in $altova:node/child::node() satisfies ( ( boolean( $altova:child/self::text() ) and string-length( $altova:child ) = 0 ) or ( ( boolean( $altova:child/self::div ) or boolean( $altova:child/self::span ) or boolean( $altova:child/self::a ) ) and altova:is-node-empty( $altova:child ) ) )"/>
 	</xsl:function>
+	<xsl:function name="altova:col-position" as="xs:integer" xpath-default-namespace="">
+		<xsl:param name="altova:Cell" as="element()"/>
+		<xsl:param name="altova:TableIndexInfo" as="element()"/>
+		<xsl:variable name="altova:nRow" select="altova:GetGridRowNumForCell($altova:Cell)"/>
+		<xsl:variable name="altova:nCell" select="count($altova:Cell/preceding-sibling::th) + count($altova:Cell/preceding-sibling::td) + 1" as="xs:integer"/>
+		<xsl:sequence select="$altova:TableIndexInfo/altova:Row[$altova:nRow]/altova:ColumnIndex[$altova:nCell]"/>
+	</xsl:function>
+	<xsl:template match="@*" mode="altova:copy-table-cell-properties">
+		<xsl:copy-of select="."/>
+	</xsl:template>
+	<xsl:template match="@colspan" mode="altova:copy-table-cell-properties"/>
 	<xsl:function name="altova:col-span" as="xs:integer">
 		<xsl:param name="altova:cell" as="element()"/>
 		<xsl:sequence select="if ( exists( $altova:cell/@colspan ) ) then xs:integer( $altova:cell/@colspan ) else 1"/>
@@ -7577,21 +7616,88 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template match="th | td" mode="altova:generate-table" xpath-default-namespace="">
+	<xsl:template match="tr" mode="altova:generate-table" xpath-default-namespace="">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
 		<xsl:choose>
-			<xsl:when test="altova:is-cell-empty( . )">
-				<xsl:copy>
-					<xsl:apply-templates select="@*" mode="#current"/>
-					<xsl:text>&#160;</xsl:text>
-				</xsl:copy>
+			<xsl:when test="ancestor::table[1]/@altova:hide-rows = 'empty'">
+				<xsl:if test="some $altova:cell in (th | td) satisfies not(altova:is-cell-empty($altova:cell))">
+					<xsl:copy>
+						<xsl:apply-templates select="@* | node()" mode="#current">
+							<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+							<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+						</xsl:apply-templates>
+					</xsl:copy>
+				</xsl:if>
+			</xsl:when>
+			<xsl:when test="ancestor::table[1]/@altova:hide-rows = 'body-empty'">
+				<xsl:if test="not(exists(parent::tbody)) or (some $altova:cell in td satisfies not(altova:is-cell-empty($altova:cell)))">
+					<xsl:copy>
+						<xsl:apply-templates select="@* | node()" mode="#current">
+							<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+							<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+						</xsl:apply-templates>
+					</xsl:copy>
+				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:copy>
-					<xsl:apply-templates select="@* | node()" mode="#current"/>
+					<xsl:apply-templates select="@* | node()" mode="#current">
+						<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+						<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+					</xsl:apply-templates>
 				</xsl:copy>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	<xsl:template match="th | td" mode="altova:generate-table" xpath-default-namespace="">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
+		<xsl:variable name="altova:this-cell" select="."/>
+		<xsl:variable name="altova:col-index" select="altova:col-position($altova:this-cell, $altova:TableIndexInfo)"/>
+		<xsl:choose>
+			<xsl:when test="$altova:generate-cols[$altova:col-index]">
+				<xsl:copy>
+					<xsl:apply-templates select="@*" mode="#current">
+						<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+						<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+					</xsl:apply-templates>
+					<xsl:choose>
+						<xsl:when test="altova:is-cell-empty($altova:this-cell)">
+							<xsl:text>&#160;</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:copy-of select="node()"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:copy>
+			</xsl:when>
+			<xsl:when test="altova:col-span($altova:this-cell) > 1">
+				<xsl:for-each select="for $altova:pos in $altova:col-index to ($altova:col-index + altova:col-span($altova:this-cell) - 1) return if ($altova:generate-cols[$altova:pos]) then true() else ()">
+					<xsl:for-each select="$altova:this-cell">
+						<xsl:copy>
+							<xsl:apply-templates select="@*" mode="altova:copy-table-cell-properties"/>
+							<xsl:text>&#160;</xsl:text>
+						</xsl:copy>
+					</xsl:for-each>
+				</xsl:for-each>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="@colspan" mode="altova:generate-table" xpath-default-namespace="">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
+		<xsl:choose>
+			<xsl:when test="exists( ancestor::table[ 1 ]/@altova:hide-cols )">
+				<xsl:variable name="altova:col-index" select="altova:col-position(.., $altova:TableIndexInfo)"/>
+				<xsl:attribute name="colspan" select="sum( for $altova:pos in $altova:col-index to ( $altova:col-index + xs:integer( . ) - 1 ) return if ( $altova:generate-cols[ $altova:pos ] ) then 1 else 0 )"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:attribute name="colspan" select="."/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="@altova:hide-rows | @altova:hide-cols" mode="altova:generate-table"/>
 	<xsl:function name="altova:CountLeadingTrueValues">
 		<xsl:param name="seqBools"/>
 		<xsl:sequence select="if (not($seqBools[1] = true())) then 0 else 1 + altova:CountLeadingTrueValues($seqBools[position() gt 1])"/>

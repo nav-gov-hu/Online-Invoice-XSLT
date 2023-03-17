@@ -829,10 +829,10 @@
 					</xsl:variable>
 					<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
 				</fo:block>
-				<xsl:if test="exists(n1:conventionalInvoiceInfo)">
-					<fo:block padding-top="5mm" margin-right="100% - 100%" space-before="0" space-after="0" margin="0pt">
+				<fo:block padding-top="5mm" margin-right="100% - 100%" space-before="0" space-after="0" margin="0pt">
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:orderNumbers)">
 						<xsl:variable name="altova:table">
-							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
+							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray" altova:hide-rows="body-empty" altova:hide-cols="body-empty">
 								<fo:table-column column-width="62.700mm"/>
 								<fo:table-column column-width="127.300mm"/>
 								<xsl:variable name="altova:CurrContextGrid_5" select="."/>
@@ -842,14 +842,14 @@
 										<xsl:for-each select="n1:orderNumbers">
 											<xsl:for-each select="n1:orderNumber">
 												<fo:table-row>
-													<fo:table-cell border-style="none" border="solid 1pt gray" padding="2pt" display-align="center">
+													<fo:table-cell border-style="none" border="solid 1pt gray" padding="2pt" display-align="center" altova:is-body-cell="true">
 														<fo:block>
 															<xsl:if test="position() &lt; 2">
 																<xsl:call-template name="ConventionalInfoOrderNumberTemplate_L10N"/>
 															</xsl:if>
 														</fo:block>
 													</fo:table-cell>
-													<fo:table-cell border-style="none" border="solid 1pt gray" padding="2pt" display-align="center">
+													<fo:table-cell border-style="none" border="solid 1pt gray" padding="2pt" display-align="center" altova:is-body-cell="true">
 														<fo:block>
 															<xsl:call-template name="GenericZeroWidthWhitespaceOffset"/>
 														</fo:block>
@@ -861,7 +861,27 @@
 								</fo:table-body>
 							</fo:table>
 						</xsl:variable>
-						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+						<xsl:variable name="altova:effective-table">
+							<xsl:variable name="altova:col-count" select="sum( for $altova:cell in $altova:table/fo:table/(fo:table-header | fo:table-body | fo:table-footer)[ 1 ]/fo:table-row[ 1 ]/fo:table-cell return altova:col-span( $altova:cell ) )"/>
+							<xsl:variable name="altova:TableIndexInfo" select="altova:BuildTableIndexInfo($altova:table)"/>
+							<xsl:variable name="altova:generate-cols" as="xs:boolean*">
+								<xsl:choose>
+									<xsl:when test="$altova:table/fo:table/@altova:hide-cols = 'empty'">
+										<xsl:sequence select="for $altova:pos in 1 to $altova:col-count return some $altova:cell in $altova:table/fo:table/(fo:table-header | fo:table-body | fo:table-footer)/fo:table-row/fo:table-cell[ altova:col-position(., $altova:TableIndexInfo) = $altova:pos ] satisfies not( altova:is-cell-empty( $altova:cell ) )"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:sequence select="for $altova:pos in 1 to $altova:col-count return some $altova:cell in $altova:table/fo:table/fo:table-body/fo:table-row/fo:table-cell[ altova:col-position(., $altova:TableIndexInfo) = $altova:pos ] satisfies not( altova:is-cell-empty( $altova:cell ) )"/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:variable>
+							<xsl:apply-templates select="$altova:table" mode="altova:generate-table">
+								<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+								<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+							</xsl:apply-templates>
+						</xsl:variable>
+						<xsl:apply-templates select="$altova:effective-table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:deliveryNotes)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -893,6 +913,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:shippingDates)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -924,6 +946,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:contractNumbers)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -955,6 +979,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:supplierCompanyCodes)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -986,6 +1012,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:customerCompanyCodes)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1017,6 +1045,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:dealerCodes)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1048,6 +1078,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:costCenters)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1079,6 +1111,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:projectNumbers)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1110,6 +1144,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:generalLedgerAccountNumbers)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1141,6 +1177,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:glnNumbersSupplier)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1172,6 +1210,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:glnNumbersCustomer)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1203,6 +1243,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:materialNumbers)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1234,6 +1276,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:itemNumbers)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1265,6 +1309,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
+					</xsl:if>
+					<xsl:if test="exists(n1:conventionalInvoiceInfo/n1:ekaerIds)">
 						<xsl:variable name="altova:table">
 							<fo:table border-collapse="collapse" border-style="none" table-layout="fixed" width="100%" border="solid 1pt gray">
 								<fo:table-column column-width="62.700mm"/>
@@ -1296,8 +1342,8 @@
 							</fo:table>
 						</xsl:variable>
 						<xsl:apply-templates select="$altova:table" mode="altova:copy-table"/>
-					</fo:block>
-				</xsl:if>
+					</xsl:if>
+				</fo:block>
 				<xsl:if test="exists(n1:additionalInvoiceData)">
 					<fo:block padding-top="5mm" margin-right="100% - 100%" space-before="0" space-after="0" margin="0pt">
 						<xsl:variable name="altova:table">
@@ -2116,7 +2162,7 @@
 																<altova:line-break/>
 																<xsl:for-each select="n1:productFeeClause">
 																	<xsl:for-each select="n1:customerDeclaration">
-																		<xsl:call-template name="ProduktStreamTemplate_C5X"/>
+																		<xsl:call-template name="ProductStreamTemplate_C5X"/>
 																	</xsl:for-each>
 																</xsl:for-each>
 															</xsl:when>
@@ -2635,29 +2681,6 @@
 															</xsl:for-each>
 														</xsl:for-each>
 													</fo:block>
-												</fo:table-cell>
-											</fo:table-row>
-										</xsl:when>
-										<xsl:otherwise/>
-									</xsl:choose>
-									<xsl:choose>
-										<xsl:when test="exists(n1:productFeeClause)">
-											<fo:table-row keep-together.within-page="always" keep-together.within-column="always">
-												<xsl:variable name="sBackground-color">
-													<xsl:call-template name="altova:MakeValueAbsoluteIfPixels">
-														<xsl:with-param name="sValue" select="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
-													</xsl:call-template>
-												</xsl:variable>
-												<xsl:if test="$sBackground-color != ''">
-													<xsl:attribute name="background-color">
-														<xsl:value-of select="$sBackground-color"/>
-													</xsl:attribute>
-												</xsl:if>
-												<fo:table-cell number-columns-spanned="2" border-style="none" border="solid 1pt gray" padding="2pt" display-align="center">
-													<fo:block/>
-												</fo:table-cell>
-												<fo:table-cell number-columns-spanned="2" border-style="none" border="solid 1pt gray" padding="2pt" display-align="center">
-													<fo:block/>
 												</fo:table-cell>
 											</fo:table-row>
 										</xsl:when>
@@ -8267,7 +8290,7 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-	<xsl:template name="ProduktStreamTemplate_C5X">
+	<xsl:template name="ProductStreamTemplate_C5X">
 		<xsl:choose>
 			<xsl:when test="n1:productStream = &apos;BATTERY&apos;">
 				<xsl:choose>
@@ -8683,6 +8706,119 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 		<xsl:param name="altova:cell" as="element()"/>
 		<xsl:sequence select="if ( exists( $altova:cell/@number-columns-spanned ) ) then xs:integer( $altova:cell/@number-columns-spanned ) else 1"/>
 	</xsl:function>
+	<xsl:function name="altova:is-cell-empty" as="xs:boolean">
+		<xsl:param name="altova:cell" as="element()"/>
+		<xsl:sequence select="altova:is-node-empty( $altova:cell )"/>
+	</xsl:function>
+	<xsl:template match="@* | node()" mode="altova:generate-table">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
+		<xsl:copy>
+			<xsl:apply-templates select="@* | node()" mode="#current">
+				<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+				<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+			</xsl:apply-templates>
+		</xsl:copy>
+	</xsl:template>
+	<xsl:template match="@altova:hide-rows | @altova:hide-cols | @altova:is-body-cell" mode="altova:generate-table"/>
+	<xsl:template match="fo:table-row" mode="altova:generate-table">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
+		<xsl:choose>
+			<xsl:when test="ancestor::fo:table[ 1 ]/@altova:hide-rows = 'empty'">
+				<xsl:if test="some $altova:cell in fo:table-cell satisfies not( altova:is-cell-empty( $altova:cell ) )">
+					<xsl:copy>
+						<xsl:apply-templates select="@* | node()" mode="#current">
+							<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+							<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+						</xsl:apply-templates>
+					</xsl:copy>
+				</xsl:if>
+			</xsl:when>
+			<xsl:when test="ancestor::fo:table[ 1 ]/@altova:hide-rows = 'body-empty'">
+				<xsl:if test="not( exists( parent::fo:table-body ) ) or ( some $altova:cell in fo:table-cell[ @altova:is-body-cell = 'true' ] satisfies not( altova:is-cell-empty( $altova:cell ) ) )">
+					<xsl:copy>
+						<xsl:apply-templates select="@* | node()" mode="#current">
+							<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+							<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+						</xsl:apply-templates>
+					</xsl:copy>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:copy>
+					<xsl:apply-templates select="@* | node()" mode="#current">
+						<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+						<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+					</xsl:apply-templates>
+				</xsl:copy>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:function name="altova:col-position" as="xs:integer">
+		<xsl:param name="altova:Cell" as="element()"/>
+		<xsl:param name="altova:TableIndexInfo" as="element()"/>
+		<xsl:variable name="altova:nRow" select="altova:GetGridRowNumForCell($altova:Cell)"/>
+		<xsl:variable name="altova:nCell" select="count($altova:Cell/preceding-sibling::fo:table-cell) + 1" as="xs:integer"/>
+		<xsl:sequence select="$altova:TableIndexInfo/altova:Row[$altova:nRow]/altova:ColumnIndex[$altova:nCell]"/>
+	</xsl:function>
+	<xsl:template match="fo:table-cell" mode="altova:generate-table">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
+		<xsl:variable name="altova:this-cell" select="."/>
+		<xsl:variable name="altova:col-index" select="altova:col-position($altova:this-cell, $altova:TableIndexInfo)"/>
+		<xsl:choose>
+			<xsl:when test="$altova:generate-cols[ $altova:col-index ]">
+				<xsl:copy>
+					<xsl:apply-templates select="@*" mode="#current">
+						<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+						<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+					</xsl:apply-templates>
+					<xsl:copy-of select="node()"/>
+				</xsl:copy>
+			</xsl:when>
+			<xsl:when test="altova:col-span( $altova:this-cell ) > 1">
+				<xsl:for-each select="for $altova:pos in $altova:col-index to ( $altova:col-index + altova:col-span( $altova:this-cell ) - 1 ) return if ( $altova:generate-cols[ $altova:pos ] ) then true() else ()">
+					<fo:table-cell>
+						<xsl:apply-templates select="$altova:this-cell/@*" mode="altova:copy-table-cell-properties"/>
+						<fo:block/>
+					</fo:table-cell>
+				</xsl:for-each>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="fo:table-column" mode="altova:generate-table">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
+		<xsl:variable name="altova:col-index" select="count( preceding-sibling::fo:table-column ) + 1"/>
+		<xsl:if test="$altova:generate-cols[ $altova:col-index ]">
+			<xsl:copy>
+				<xsl:apply-templates select="@*" mode="#current">
+					<xsl:with-param name="altova:generate-cols" select="$altova:generate-cols"/>
+					<xsl:with-param name="altova:TableIndexInfo" select="$altova:TableIndexInfo"/>
+				</xsl:apply-templates>
+				<xsl:copy-of select="node()"/>
+			</xsl:copy>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template match="@number-columns-spanned" mode="altova:generate-table">
+		<xsl:param name="altova:generate-cols"/>
+		<xsl:param name="altova:TableIndexInfo"/>
+		<xsl:choose>
+			<xsl:when test="exists( ancestor::fo:table[ 1 ]/@altova:hide-cols )">
+				<xsl:variable name="altova:col-index" select="altova:col-position(.., $altova:TableIndexInfo)"/>
+				<xsl:attribute name="number-columns-spanned" select="sum( for $altova:pos in $altova:col-index to ( $altova:col-index + xs:integer( . ) - 1 ) return if ( $altova:generate-cols[ $altova:pos ] ) then 1 else 0 )"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:attribute name="number-columns-spanned" select="."/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="@*" mode="altova:copy-table-cell-properties">
+		<xsl:copy-of select="."/>
+	</xsl:template>
+	<xsl:template match="@altova:is-body-cell" mode="altova:copy-table-cell-properties"/>
+	<xsl:template match="@number-columns-spanned" mode="altova:copy-table-cell-properties"/>
 	<xsl:template match="/">
 		<xsl:apply-templates select="$altova:design-xslt-tree-view" mode="second-step"/>
 	</xsl:template>
