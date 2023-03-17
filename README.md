@@ -27,13 +27,13 @@ Az XSLT templatek magyar, angol és német nyelvű képi megjelenítést is tám
  A dátum-és számformátumok lokalizációja a következő.
 
 - dátum: 
-	HU: YYYY. month(HU) DD.
-	EN: DD. month(EN) YYYY.
-	DE: YYYY. month(DE) DD.
+	- HU: YYYY. month(HU) DD.
+	- EN: DD. month(EN) YYYY.
+	- DE: YYYY. month(DE) DD.
 - szám:
- 	HU: ezres elválasztó - space, tizedes elválasztó: vessző
-  	EN: ezres elválasztó - vessző, tizedes elválasztó: pont
-  	DE: ezres elválasztó - pont, tizedes elválasztó: vessző
+ 	- HU: ezres elválasztó - space, tizedes elválasztó: vessző
+  	- EN: ezres elválasztó - vessző, tizedes elválasztó: pont
+  	- DE: ezres elválasztó - pont, tizedes elválasztó: vessző
 
 ### 1.4) Styling defaults
 
@@ -59,74 +59,68 @@ A templatek tartalmaznak alapértelmezett formázásokat. Ezek közül a font si
 
 Az eltérő fejlesztői igényekhez és felhasználási körökhöz igazodva többféle integrációs lehetőséget is biztosítunk.
 
-1) NAV által biztosított vastagkliens.
-A programot le kell tölteni a tárhelyről, ami ezt követően egyszerű végrehajtható fájlként futtatható. 
-Indítás után a grafikus felületen be kell tallózni azt az invoiceData XML fájlt, amelynek a tartalmát meg szeretnénk jeleníteni, valamint ki kell választani a kért nyelvet valamint formátumot.
-A program ezt követően a társított PDF vagy HTML olvasó alkalmazással megjeleníti az elkészült dokumentumot. Ezt a módozatot azoknak az üzleti felhasználóknak ajánljuk, akik nem akarják az általuk használt szoftverbe belefejlesztetni az XSLT integrációját, de a megjelenítési szolgáltatást szeretnék igénybe venni.
+#### 1) NAV által biztosított vastagkliens
+A programot le kell tölteni a tárhelyről [nav_xslt_setup.zip](https://github.com/nav-gov-hu/Online-Invoice-XSLT/blob/master/client/nav_xslt_setup.zip), ami ezt követően egyszerű végrehajtható fájlként futtatható. Indítás után a grafikus felületen be kell tallózni azt az invoiceData XML fájlt, amelynek a tartalmát meg szeretnénk jeleníteni, valamint ki kell választani a kért nyelvet valamint formátumot. A program ezt követően a társított PDF vagy HTML olvasó alkalmazással megjeleníti az elkészült dokumentumot. Ezt a módozatot azoknak az üzleti felhasználóknak ajánljuk, akik nem akarják az általuk használt szoftverbe belefejlesztetni az XSLT integrációját, de a megjelenítési szolgáltatást szeretnék igénybe venni.
 
-2) Java alapú Lightweight CLI integráció. 
-Az integrációhoz szükség van egy XSLT engine-re (HTML kimenet esetén), és ezen kívül egy FO processzorra, ha PDF-et is akarunk generálni.
-
-### Figyelem!!!
-A példa projekthez kiválasztott XSLT és FO processzorok helyett alkalmazható más ugyanolyan értékű és tudású (XSLT 2.0 compliant) processzor is, megfelelő konfiguráció mellett. 
+#### 2) OS-natív vagy Java alapú CLI integráció
+Ezt a módozatot azoknak ajánljuk, akik a számlaadat megjelenítést integrálni szeretnék valamilyen módon az általuk használt szoftverbe, de erre nem akarnak külön fejleszteni, és megelégszenek egy script szintű megoldással. Az integrációhoz szükség van egy XSLT engine-re (HTML kimenet esetén), és ezen kívül egy FO processzorra, ha PDF-et is akarunk generálni. A példa projekthez kiválasztott XSLT és FO processzorok helyett alkalmazható más ugyanolyan értékű és tudású (XSLT 2.0 compliant) processzor is, megfelelő konfiguráció mellett. 
 
 A szükséges telepítő állományok itt érhetők el.
 
+- [Saxon XSLT and XQuery Processor v11 HE (HOME EDITION)]
+	- Letöltés: (https://www.saxonica.com/download/download_page.xml)
+	- CLI referencia: https://www.saxonica.com/documentation9.5/using-xsl/commandline.html
 
-[Saxon XSLT and XQuery Processor v11 HE (HOME EDITION)](https://www.saxonica.com/download/download_page.xml)
+- [Apache™ FOP]
+	- Letöltés: (https://xmlgraphics.apache.org/fop/download.html)
+	- CLI referencia: https://xmlgraphics.apache.org/fop/0.95/running.html
 
+#### 3) XSLT beágyazás 
 
-[Apache™ FOP](https://xmlgraphics.apache.org/fop/download.html)
+Természetesen lehetőség van a NAV által biztosított XSLT templateket natív módon beemelni bármilyen szoftverbe, az opensource licensz ezt kifejezetten megengedi és ezzel a céllal is történik a közzététel. A legtöbb nyelven létezik több ingyenes library is ami képes XSLT runtime futtatására. Amire figyelni kell, hogy az integráció XSLT 2.0 kompatibilis parserrel történjen. Alternatív megoldásként lehetőség van a 2) módszerben említett jar-ok becsomagolására is a projektbe, mert a generálás mind a Saxonica, mind az FOP esetén metódusból is hívható. Erről a hivatalos dokumentációkban lehet bővebben olvasni, de néhány példát mi is közzéteszünk.
 
-### Projekt konfigurációja
-A projekt tartalmazza az Apache FOP 2.8-as verzióját valamint a Saxon XSLT processzor 11.4-es Home Edition verzióját.
-
-A szükséges konfigurációk elvégzése után lehetőség van a dokumentum generálást a megfelelő XSLT template és a bemeneti XML birtokában parancssorból elindítani.
+### 1.6) Projekt konfigurációja CLI integrációhoz
 
 Figyelni kell rá, hogy PDF és HTML kimenethez eltérő XSLT fájlt kell használni!
 
-PDF  -> InvoiceDataTemplate_XSLT_FO.xslt
+- PDF  -> InvoiceDataTemplate_XSLT_FO.xslt
+- HTML -> InvoiceDataTemplate_XSLT_HTML.xslt 
 
-HTML -> InvoiceDataTemplate_XSLT_HTML.xslt 
+Az XSLT állomány-ban a nyelvet a $lang paraméter által vezéreljük. A $lang paraméter elfogadott értékei: 'HU', 'EN', 'DE', ezzel lehet a kimenet nyelvét beállítani. A parancssorban a filepath-ok megadhatók abszolút vagy relatív formában is, a lényeg hogy a hivatkozott XML és XSLT, valamint jar fájlok az útvonalon megtalálhatók és a felhasználó által futtathatók legyenek.
 
-Az XSLT állomány-ban a nyelvet a $lang paraméter által vezéreljük. A $lang paraméter elfogadott értékei: 'HU', 'EN', 'DE', ezzel lehet a kimenet nyelvét beállítani. A parancssorban a filepath-ok megadhatók abszolút vagy relatív formában is, a lényeg hogy a hivatkozott XML és XSLT, valamint jar fájlok az útvonalon megtalálhatók és futtathatók legyenek.
-
-HTML kimenethez java példa (Windows)
+HTML kimenethez OS-natív példa (Windows)
 ```
 java -jar "%USERPROFILE%\saxon-he-11.3.jar" -s:"%USERPROFILE%\input_XML.xml" -xsl:"%USERPROFILE%\InvoiceDataTemplate_XSLT_HTML.xslt" -o:"%USERPROFILE%\output_file.html" ?lang='HU' && "%USERPROFILE%\output_file.html"
 ```
-vagy
+HTML kimenethez java példa (Windows)
 ```
 java -jar SaxonHE11-4J\saxon-he-11.4.jar -s:1_szamla.xml -xsl:template\3.0\InvoiceDataTemplate_XSLT_HTML.xslt -o:1_szamla.html ?lang='HU' && 1_szamla.html
 ```
-PDF kimenethez java példa (Windows)
+PDF kimenethez OS-natív példa (Windows)
 ```
 java -jar "%USERPROFILE%\saxon-he-11.3.jar" -s:"%USERPROFILE%\input_XML.xml" -xsl:"%USERPROFILE%\InvoiceDataTemplate_XSLT_FO.xslt" -o:"%USERPROFILE%\fo_file.fo" ?lang='HU' && "%USERPROFILE%\fop.bat" fop -q -fo "%USERPROFILE%\fo_file.fo" -pdf "%USERPROFILE%\output_file.pdf" && "%USERPROFILE%\output_file.pdf"
 ```
-vagy 
+PDF kimenethez java példa (Windows)
 ```
 java -jar SaxonHE11-4J\saxon-he-11.4.jar -s:1_szamla.xml -xsl:template\3.0\InvoiceDataTemplate_XSLT_FO.xslt -o:fo_file.fo ?lang='HU' && fop-2.8\fop\fop.bat fop -c fop-2.8\fop\conf\fop_user.xml  -q -fo fo_file.fo -pdf 1_szamla.pdf && 1_szamla.pdf
 ```
 Unix típusú operációs rendszer esetén a filepath kifejezések megfelelően átírandók. (pl: \%USERPROFILE%\ => /$HOME/)
-Ezt a módozatot azoknak ajánljuk, akik a számlaadat megjelenítést integrálni szeretnék valamilyen módon az általuk használt szoftverbe, de erre nem akarnak külön fejleszteni, és megelégszenek egy script szintű megoldással.
 
-### PDF Generálás leírása
-A fenti parancsokat az alábbiak szerint szükséges értelmezni Windows parancssorban
+#### 1.6.1) PDF Generálás magyarázata
+A fenti parancsokat az alábbiak szerint szükséges értelmezni Windows parancssorban. (Az && jellel a parancsokat fűzzük össze oly módon, hogy csak akkor hajtódik végre ha az előző parancs sikeresen lefutott.)
 
-##### 1.) java -jar SaxonHE11-4J\saxon-he-11.4.jar -s:1_szamla.xml -xsl:template\3.0\InvoiceDataTemplate_XSLT_FO.xslt -o:fo_file.fo ?lang='HU'
-A Saxonicával az XML számla és az XSLT template segítségével legeneráljuk az xsl:fo állományt. A ?lang='HU' esetében a kérdőjel előtt szóközt kell hagyni mivel az az xslt template paramétere!
-
-##### 2.) fop-2.8\fop\fop.bat fop -c fop-2.8\fop\conf\fop_user.xml  -q -fo fo_file.fo -pdf 1_szamla.pdf 
-A FOP-al legeneráljuk a PDF-et a az 1-es pontban legenerált xsl:fo állomány segítségével
-
+##### 1.) A Saxonicával az XML számla és az XSLT template segítségével legeneráljuk az xsl:fo állományt. A ?lang='HU' esetében a kérdőjel előtt szóközt kell hagyni mivel az az xslt template paramétere!
+```
+java -jar SaxonHE11-4J\saxon-he-11.4.jar -s:1_szamla.xml -xsl:template\3.0\InvoiceDataTemplate_XSLT_FO.xslt -o:fo_file.fo ?lang='HU'
+```
+##### 2.) A FOP-al legeneráljuk a PDF-et a az 1-es pontban legenerált xsl:fo állomány segítségével
+```
+fop-2.8\fop\fop.bat fop -c fop-2.8\fop\conf\fop_user.xml  -q -fo fo_file.fo -pdf 1_szamla.pdf 
+```
 ##### 3.) 1_szamla.pdf megnyitjuk a pdf-et.
 
-Az && jellel a parancsokat összefűzzük oly módon, hogy csak akkor hajtódik végre ha az előző parancs sikeresen lefutott
-
-A HTML generálás adja magát :)
-
-##### Config módosítások az FO processzorhoz. 
-A konfigurációs módosításokat vagy az fop.xconf állományba hajtjuk végre vagy külön XML állományba kerülnek. az alábbiak szerint.
+#### 1.6.2) Config módosítások az FO processzorhoz. 
+A konfigurációs módosításokat vagy az fop.xconf állományba hajtjuk végre vagy külön XML állományba kerülnek, az alábbiak szerint.
 (Ha külön állományban van akkor meg kell adni annak az elérési útvonalát a –c kapcsolóval a FOP-nak)
 
 ```xml
@@ -135,7 +129,7 @@ A konfigurációs módosításokat vagy az fop.xconf állományba hajtjuk végre
 <!—A relatív URL-ek értelmezéséhez. Amennyiben az XSLT állományban relatív elérési utak szerepelnek akkor ehhez képest fog majd viselkedni az FO processor. Ez a projekt root-ja jelenleg-->
 <base>..</base>
 
-<!—Fontok relatív elérési útvonalának rootja. Érthetetlen módon ez alapértelmezett módon az FO processzor conf mappája ezért vissza kell a projekt root-ba navigálni-->
+<!—Fontok relatív elérési útvonalának rootja. Ez alapértelmezett módon az FO processzor conf mappája, ezért vissza kell a projekt root-ba navigálni-->
 <font-base>../../../</font-base>
     <renderers>
         <renderer mime="application/pdf">
@@ -151,12 +145,7 @@ A konfigurációs módosításokat vagy az fop.xconf állományba hajtjuk végre
 
 ```
 
-
-### XSLT beágyazás 
-
-Természetesen lehetőség van a NAV által biztosított XSLT templateket natív módon beemelni bármilyen szoftverbe, az opensource licensz ezt kifejezetten megengedi és ezzel a céllal is történik a közzététel. A legtöbb nyelven létezik több ingyenes library is ami képes XSLT runtime futtatására. Amire figyelni kell, hogy az integráció XSLT 2.0 kompatibilis parserrel történjen. Alternatív megoldásként lehetőség van a 2) módszerben említett jar-ok becsomagolására is a projektbe, mert a generálás mind a Saxonica, mind az FOP esetén metódusból is hívható. Erről a hivatalos dokumentációkban lehet bővebben olvasni.
-
-### 1.6) Kezelt hibák
+### 1.7) Kezelt hibák
 
 Fontos kihangsúlyozni, hogy a desktop verzió semmiféle üzleti validációt nem végez a bemeneti XML-en. Másként fogalmazva, ha az XML séma valid, akkor a template olyan számla adatszolgáltatásokat is gond meg fog jeleníteni, amelyek egyébként az Online Számla rendszer validációin elbuknának. A megjelenített tartalomban sincs semmiféle üzleti logika, egymásnak ellentmondó vagy kizáró bemenetek is megjelennek. (pl: magánszemély vevőnél név-és címadat, ha az az XML-ben szerepel) Minden esetben a felhasználó felelőssége, hogy a bemeneti XML-eket mennyire szanitálja a képgenerálás előtt.
 
