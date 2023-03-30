@@ -4199,7 +4199,10 @@
 												</fo:inline>
 											</fo:block>
 										</fo:table-cell>
-										<fo:table-cell number-columns-spanned="2" border-bottom-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">
+										<fo:table-cell border-bottom-style="none" border-right-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">
+											<fo:block/>
+										</fo:table-cell>
+										<fo:table-cell border-bottom-style="none" border-left-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">
 											<fo:block/>
 										</fo:table-cell>
 										<fo:table-cell table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">
@@ -4228,7 +4231,10 @@
 												</fo:inline>
 											</fo:block>
 										</fo:table-cell>
-										<fo:table-cell number-columns-spanned="2" border-top-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">
+										<fo:table-cell border-right-style="none" border-top-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">
+											<fo:block/>
+										</fo:table-cell>
+										<fo:table-cell border-left-style="none" border-top-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">
 											<fo:block/>
 										</fo:table-cell>
 										<fo:table-cell table-omit-footer-at-break="true" table-omit-header-at-break="true" border="solid 1pt gray" padding="2pt" display-align="center">

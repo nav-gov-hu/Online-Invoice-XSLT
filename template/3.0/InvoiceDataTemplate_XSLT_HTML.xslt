@@ -3294,7 +3294,8 @@
 												<xsl:text>Mindösszesen:</xsl:text>
 											</span>
 										</td>
-										<td colspan="2" style="border-bottom-style:none; table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; "/>
+										<td style="border-bottom-style:none; border-right-style:none; table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; "/>
+										<td style="border-bottom-style:none; border-left-style:none; table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; "/>
 										<td style="table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; ">
 											<xsl:if test="exists(n1:summaryGrossData)">
 												<xsl:for-each select="n1:summaryGrossData">
@@ -3317,7 +3318,8 @@
 												<xsl:text>Forintban:</xsl:text>
 											</span>
 										</td>
-										<td colspan="2" style="border-top-style:none; table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; "/>
+										<td style="border-right-style:none; border-top-style:none; table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; "/>
+										<td style="border-left-style:none; border-top-style:none; table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; "/>
 										<td style="table-omit-footer-at-break:true; table-omit-header-at-break:true; width:47.5mm; ">
 											<xsl:if test="exists(n1:summaryGrossData)">
 												<xsl:for-each select="n1:summaryGrossData">

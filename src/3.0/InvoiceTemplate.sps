@@ -6698,10 +6698,10 @@
 																						</children>
 																					</tgridcell>
 																					<tgridcell>
-																						<styles border-bottom-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
+																						<styles border-bottom-style="none" border-right-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
 																					</tgridcell>
-																					<tgridcell joinleft="1">
-																						<styles table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
+																					<tgridcell>
+																						<styles border-bottom-style="none" border-left-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
 																					</tgridcell>
 																					<tgridcell>
 																						<styles table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
@@ -6746,10 +6746,10 @@
 																						</children>
 																					</tgridcell>
 																					<tgridcell>
-																						<styles border-top-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
+																						<styles border-right-style="none" border-top-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
 																					</tgridcell>
-																					<tgridcell joinleft="1">
-																						<styles table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
+																					<tgridcell>
+																						<styles border-left-style="none" border-top-style="none" table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
 																					</tgridcell>
 																					<tgridcell>
 																						<styles table-omit-footer-at-break="true" table-omit-header-at-break="true"/>
