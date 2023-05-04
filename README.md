@@ -12,7 +12,7 @@ Kérjük figyelembe venni, hogy bár a tárhely publikusan elérhető, a vélem�
 
 ### 1.1) XSLT szabvány
 
-Az XSLT egy W3C szabvány olyan XML dokumentumok képi megjelenítésére, amelyeket séma vagy dokumentum típus leíró (XSD / DTD) határoz meg. Segítségével leírható egy olyan szabályrendszer, amely az XML tartalmát egy meghatározott formára alakítja. A szabályrendszer nagyon rugalmas és számos lehetőséget biztosít a transzformációra. A megjelenítés feltételekhez köthető, ez során vizsgálható a bemeneti XML tag kitöltöttsége, a tag tartalma, vagy bármilyen támogatott függvény kimenete. Az XML tartalma rendezhető, csoportosítható, akár a megjelenített értéke is felüldefiniálható. A formázási lehetőségek a HTML és CSS szabványok segítségével írhatók le, melyek szintén feltételekhez is köthetők.
+Az XSLT egy W3C szabvány olyan XML dokumentumok képi megjelenítésére, amelyeket séma vagy dokumentum típus leíró (XSD / DTD) határoz meg. Segítségével leírható egy olyan szabályrendszer, amely az XML tartalmát egy meghatározott formára alakítja. A szabályrendszer nagyon rugalmas és számos lehetőséget biztosít a transzformációra. A megjelenítés feltételekhez köthető, ennek során vizsgálható a bemeneti XML tag kitöltöttsége, a tag tartalma, vagy bármilyen támogatott függvény kimenete. Az XML tartalma rendezhető, csoportosítható, akár a megjelenített értéke is felüldefiniálható. A formázási lehetőségek a HTML és CSS szabványok segítségével írhatók le, melyek szintén feltételekhez is köthetők.
 
 A szabványról bővebben: https://www.w3.org/TR/2021/REC-xslt20-20210330/
 
@@ -150,7 +150,7 @@ A konfigurációs módosításokat vagy az fop.xconf állományba hajtjuk végre
 
 ### 1.7) Kezelt hibák
 
-Fontos kihangsúlyozni, hogy a desktop verzió semmiféle üzleti validációt nem végez a bemeneti XML-en. Másként fogalmazva, ha az XML séma valid, akkor a template olyan számla adatszolgáltatásokat is gond meg fog jeleníteni, amelyek egyébként az Online Számla rendszer validációin elbuknának. A megjelenített tartalomban sincs semmiféle üzleti logika, egymásnak ellentmondó vagy kizáró bemenetek is megjelennek. (pl: magánszemély vevőnél név-és címadat, ha az az XML-ben szerepel) Minden esetben a felhasználó felelőssége, hogy a bemeneti XML-eket mennyire szanitálja a képgenerálás előtt.
+Fontos kihangsúlyozni, hogy a desktop verzió semmiféle üzleti validációt nem végez a bemeneti XML-en. Másként fogalmazva, ha az XML jól formázott, akkor a template olyan számla adatszolgáltatásokat is gond meg fog jeleníteni, amelyek egyébként az Online Számla rendszer validációin elbuknának. A megjelenített tartalomban sincs semmiféle üzleti logika, egymásnak ellentmondó vagy kizáró bemenetek is megjelennek. (pl: magánszemély vevőnél név-és címadat, ha az az XML-ben szerepel) Minden esetben a felhasználó felelőssége, hogy a bemeneti XML-eket mennyire szanitálja a képgenerálás előtt.
 
 Ezen túlmenően, az XSLT templatek 2 külön hibaágat kezelnek csak:
 - a lokalizációt vezérlő $lang paraméter inicializálatlan, vagy nem a 'HU', 'EN', 'DE' értékeket tartalmazza
@@ -321,7 +321,7 @@ The configuration changes are implemented either in the fop.xconf file or in a s
 
 ### 1.7) Handled errors
 
-It is important to emphasize that the desktop version does not perform any kind of business validation on the input XML. In other words, if the XML schema is valid, the template will also display invoice reports that would otherwise fail on the validations of the Online Invoice system. There is no business logic in the displayed content, contradictory or exclusionary inputs are also displayed. (e.g. name and address data for a private customer, if it is included in the XML) In all cases, it is the user's responsibility to determine how well the input XML is sanitized before image generation.
+It is important to emphasize that the desktop version does not perform any kind of business validation on the input XML. In other words, if the XML schema is well-formed, the template will also display invoice reports that would otherwise fail on the validations of the Online Invoice system. There is no business logic in the displayed content, contradictory or exclusionary inputs are also displayed. (e.g. name and address data for a private customer, if it is included in the XML) In all cases, it is the user's responsibility to determine how well the input XML is sanitized before image generation.
 
 In addition, XSLT templates handle 2 separate error branches only:
 - the $lang parameter controlling the localization is not initialized or does not contain the values 'HU', 'EN', 'DE'
