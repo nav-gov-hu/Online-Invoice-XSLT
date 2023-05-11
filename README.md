@@ -150,7 +150,7 @@ A konfigurációs módosításokat vagy az fop.xconf állományba hajtjuk végre
 
 ### 1.7) Kezelt hibák
 
-Fontos kihangsúlyozni, hogy a desktop verzió semmiféle üzleti validációt nem végez a bemeneti XML-en. Másként fogalmazva, ha az XML jól formázott, akkor a template olyan számla adatszolgáltatásokat is gond meg fog jeleníteni, amelyek egyébként az Online Számla rendszer validációin elbuknának. A megjelenített tartalomban sincs semmiféle üzleti logika, egymásnak ellentmondó vagy kizáró bemenetek is megjelennek. (pl: magánszemély vevőnél név-és címadat, ha az az XML-ben szerepel) Minden esetben a felhasználó felelőssége, hogy a bemeneti XML-eket mennyire szanitálja a képgenerálás előtt.
+Fontos kihangsúlyozni, hogy a desktop verzió semmiféle üzleti validációt nem végez a bemeneti XML-en. Másként fogalmazva, ha az XML jól formázott, akkor a template olyan számla adatszolgáltatásokat is gond nélkül meg fog jeleníteni, amelyek egyébként az Online Számla rendszer validációin elbuknának. A megjelenített tartalomban sincs semmiféle üzleti logika, egymásnak ellentmondó vagy kizáró bemenetek is megjelennek. (pl: magánszemély vevőnél név-és címadat, ha az az XML-ben szerepel) Minden esetben a felhasználó felelőssége, hogy a bemeneti XML-eket mennyire szanitálja a képgenerálás előtt.
 
 Ezen túlmenően, az XSLT templatek 2 külön hibaágat kezelnek csak:
 - a lokalizációt vezérlő $lang paraméter inicializálatlan, vagy nem a 'HU', 'EN', 'DE' értékeket tartalmazza
