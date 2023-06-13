@@ -2,6 +2,8 @@
 
 [English version](#online-invoice-xslt-EN)
 
+Kliens bináris és felhasználói kézikönyv letöltése: [OSA XSLT GUI](https://github.com/nav-gov-hu/Online-Invoice-XSLT/releases)
+
 Üdvözöljük az Online Számla adatok képi megjelenítését biztosító XSLT projekt publikus tárhelyén!
 
 ## 1) A tárhely tartalma és célja
@@ -174,6 +176,9 @@ A NAV fenntartja a jogot, hogy az általános etikettet vagy jó ízlést sért�
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 # Online-Invoice-XSLT-EN
+
+Client binary and User manual download: [OSA XSLT GUI](https://github.com/nav-gov-hu/Online-Invoice-XSLT/releases)
+
 
 ## 1) Content and purpose of the repository
 
