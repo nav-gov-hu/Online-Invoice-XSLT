@@ -250,21 +250,6 @@
 													</xsl:for-each>
 												</xsl:for-each>
 												<br/>
-												<xsl:if test="exists(n1:customerName)">
-													<xsl:call-template name="InvoiceHeadNameTemplate_L10N"/>
-													<xsl:for-each select="n1:customerName">
-														<span style="font-weight:bold; ">
-															<xsl:apply-templates/>
-														</span>
-													</xsl:for-each>
-												</xsl:if>
-												<br/>
-												<xsl:if test="exists(n1:customerAddress)">
-													<xsl:call-template name="InvoiceHeadAddressTemplate_L10N"/>
-													<xsl:for-each select="n1:customerAddress">
-														<xsl:call-template name="BaseAddressTemplate"/>
-													</xsl:for-each>
-												</xsl:if>
 											</xsl:when>
 											<xsl:when test="n1:customerVatStatus != &apos;PRIVATE_PERSON&apos; and exists(n1:customerVatData/n1:communityVatNumber)">
 												<xsl:call-template name="CommunityVatNumberTemplate_L10N"/>
@@ -277,21 +262,6 @@
 												</xsl:for-each>
 												<br/>
 												<br/>
-												<xsl:if test="exists(n1:customerName)">
-													<xsl:call-template name="InvoiceHeadNameTemplate_L10N"/>
-													<xsl:for-each select="n1:customerName">
-														<span style="font-weight:bold; ">
-															<xsl:apply-templates/>
-														</span>
-													</xsl:for-each>
-												</xsl:if>
-												<br/>
-												<xsl:if test="exists(n1:customerAddress)">
-													<xsl:call-template name="InvoiceHeadAddressTemplate_L10N"/>
-													<xsl:for-each select="n1:customerAddress">
-														<xsl:call-template name="BaseAddressTemplate"/>
-													</xsl:for-each>
-												</xsl:if>
 											</xsl:when>
 											<xsl:when test="n1:customerVatStatus != &apos;PRIVATE_PERSON&apos; and exists(n1:customerVatData/n1:thirdStateTaxId)">
 												<xsl:call-template name="ThirdStateTaxIdTemplate_L10N"/>
@@ -304,27 +274,29 @@
 												</xsl:for-each>
 												<br/>
 												<br/>
-												<xsl:if test="exists(n1:customerName)">
-													<xsl:call-template name="InvoiceHeadNameTemplate_L10N"/>
-													<xsl:for-each select="n1:customerName">
-														<span style="font-weight:bold; ">
-															<xsl:apply-templates/>
-														</span>
-													</xsl:for-each>
-												</xsl:if>
-												<br/>
-												<xsl:if test="exists(n1:customerAddress)">
-													<xsl:call-template name="InvoiceHeadAddressTemplate_L10N"/>
-													<xsl:for-each select="n1:customerAddress">
-														<xsl:call-template name="BaseAddressTemplate"/>
-													</xsl:for-each>
-												</xsl:if>
 											</xsl:when>
 											<xsl:when test="n1:customerVatStatus = &apos;PRIVATE_PERSON&apos;">
 												<xsl:call-template name="PrivatePersonTemplate_L10N"/>
 												<br/>
 											</xsl:when>
 										</xsl:choose>
+										<xsl:if test="n1:customerVatStatus != &apos;PRIVATE_PERSON&apos;">
+											<xsl:if test="exists(n1:customerName)">
+												<xsl:call-template name="InvoiceHeadNameTemplate_L10N"/>
+												<xsl:for-each select="n1:customerName">
+													<span style="font-weight:bold; ">
+														<xsl:apply-templates/>
+													</span>
+												</xsl:for-each>
+											</xsl:if>
+											<br/>
+											<xsl:if test="exists(n1:customerAddress)">
+												<xsl:call-template name="InvoiceHeadAddressTemplate_L10N"/>
+												<xsl:for-each select="n1:customerAddress">
+													<xsl:call-template name="BaseAddressTemplate"/>
+												</xsl:for-each>
+											</xsl:if>
+										</xsl:if>
 										<xsl:if test="exists(n1:customerBankAccountNumber)">
 											<br/>
 											<xsl:call-template name="BankAccountNumberTemplate_L10N"/>
@@ -1073,9 +1045,7 @@
 										<tr style="keep-together:always; ">
 											<td style="border-style:none; width:62.7mm; ">
 												<xsl:for-each select="n1:dataDescription">
-													<span style="font-weight:bold; ">
-														<xsl:apply-templates/>
-													</span>
+													<xsl:call-template name="GenericZeroWidthWhitespaceOffset"/>
 												</xsl:for-each>
 												<span>
 													<xsl:text>:</xsl:text>
@@ -1085,7 +1055,7 @@
 													<xsl:text>(</xsl:text>
 												</span>
 												<xsl:for-each select="n1:dataName">
-													<xsl:apply-templates/>
+													<xsl:call-template name="GenericZeroWidthWhitespaceOffset"/>
 												</xsl:for-each>
 												<span>
 													<xsl:text>)</xsl:text>
@@ -1714,7 +1684,7 @@
 															<xsl:variable name="altova:ColumnData"/>
 															<tbody>
 																<xsl:for-each select="n1:lineProductFeeContent">
-																	<tr>
+																	<tr style="keep-together:always; ">
 																		<td style="border-style:none; width:100%; ">
 																			<span style="font-weight:bold; ">
 																				<xsl:value-of select="string-join(./n1:productFeeCode/*, &apos; - &apos;)"/>
@@ -2081,7 +2051,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:orderNumbers)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2123,7 +2093,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:deliveryNotes)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2165,7 +2135,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:shippingDates)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2207,7 +2177,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:contractNumbers)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2249,7 +2219,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:supplierCompanyCodes)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2291,7 +2261,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:customerCompanyCodes)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2333,7 +2303,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:dealerCodes)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2375,7 +2345,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:costCenters)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2417,7 +2387,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:projectNumbers)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2459,7 +2429,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:generalLedgerAccountNumbers)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2501,7 +2471,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:glnNumbersSupplier)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2543,7 +2513,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:glnNumbersCustomer)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2585,7 +2555,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:materialNumbers)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2627,7 +2597,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:itemNumbers)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2669,7 +2639,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:conventionalLineInfo/n1:ekaerIds)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; ">
@@ -2711,7 +2681,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="exists(n1:additionalLineData)">
-											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; keep-together:always; ">
+											<tr style="background-color:{if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;}; ">
 												<td colspan="4" style="border-left-color:black; border-left-width:1px; border-style:none; width:47.5mm; ">
 													<xsl:variable name="altova:table">
 														<table style="border-collapse:collapse; border-style:none; width:100%; " border="1">
@@ -2722,9 +2692,7 @@
 																	<tr>
 																		<td style="border-left-color:black; border-left-width:1px; border-style:none; width:25%; ">
 																			<xsl:for-each select="n1:dataDescription">
-																				<span style="font-weight:bold; ">
-																					<xsl:apply-templates/>
-																				</span>
+																				<xsl:call-template name="GenericZeroWidthWhitespaceOffset"/>
 																			</xsl:for-each>
 																			<span>
 																				<xsl:text>:</xsl:text>
@@ -2734,7 +2702,7 @@
 																				<xsl:text>(</xsl:text>
 																			</span>
 																			<xsl:for-each select="n1:dataName">
-																				<xsl:apply-templates/>
+																				<xsl:call-template name="GenericZeroWidthWhitespaceOffset"/>
 																			</xsl:for-each>
 																			<span>
 																				<xsl:text>)</xsl:text>
@@ -2770,7 +2738,7 @@
 									</xsl:choose>
 									<xsl:choose>
 										<xsl:when test="position() != last()">
-											<tr style="height:5mm; keep-together:always; ">
+											<tr style="height:5mm; ">
 												<td colspan="4" style="border-style:none; width:47.5mm; "/>
 											</tr>
 										</xsl:when>
@@ -4950,7 +4918,7 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 					<xsl:text>: </xsl:text>
 				</span>
 				<span style="font-weight:bold; ">
-					<xsl:value-of select="n1:vatContent * 100"/>
+					<xsl:value-of select="xs:decimal(n1:vatContent) * 100"/>
 				</span>
 				<span style="font-weight:bold; ">
 					<xsl:text> %</xsl:text>

@@ -419,45 +419,6 @@
 																										<variables/>
 																									</template>
 																									<newline/>
-																									<condition>
-																										<children>
-																											<conditionbranch xpath="exists(n1:customerName)">
-																												<children>
-																													<calltemplate subtype="named" match="InvoiceHeadNameTemplate_L10N">
-																														<parameters/>
-																													</calltemplate>
-																													<template subtype="element" match="n1:customerName">
-																														<children>
-																															<content subtype="regular">
-																																<styles font-weight="bold"/>
-																															</content>
-																														</children>
-																														<variables/>
-																													</template>
-																												</children>
-																											</conditionbranch>
-																										</children>
-																									</condition>
-																									<newline/>
-																									<condition>
-																										<children>
-																											<conditionbranch xpath="exists(n1:customerAddress)">
-																												<children>
-																													<calltemplate subtype="named" match="InvoiceHeadAddressTemplate_L10N">
-																														<parameters/>
-																													</calltemplate>
-																													<template subtype="element" match="n1:customerAddress">
-																														<children>
-																															<calltemplate subtype="named" match="BaseAddressTemplate">
-																																<parameters/>
-																															</calltemplate>
-																														</children>
-																														<variables/>
-																													</template>
-																												</children>
-																											</conditionbranch>
-																										</children>
-																									</condition>
 																								</children>
 																							</conditionbranch>
 																							<conditionbranch xpath="n1:customerVatStatus != &apos;PRIVATE_PERSON&apos; and exists(n1:customerVatData/n1:communityVatNumber)">
@@ -480,45 +441,6 @@
 																									</template>
 																									<newline/>
 																									<newline/>
-																									<condition>
-																										<children>
-																											<conditionbranch xpath="exists(n1:customerName)">
-																												<children>
-																													<calltemplate subtype="named" match="InvoiceHeadNameTemplate_L10N">
-																														<parameters/>
-																													</calltemplate>
-																													<template subtype="element" match="n1:customerName">
-																														<children>
-																															<content subtype="regular">
-																																<styles font-weight="bold"/>
-																															</content>
-																														</children>
-																														<variables/>
-																													</template>
-																												</children>
-																											</conditionbranch>
-																										</children>
-																									</condition>
-																									<newline/>
-																									<condition>
-																										<children>
-																											<conditionbranch xpath="exists(n1:customerAddress)">
-																												<children>
-																													<calltemplate subtype="named" match="InvoiceHeadAddressTemplate_L10N">
-																														<parameters/>
-																													</calltemplate>
-																													<template subtype="element" match="n1:customerAddress">
-																														<children>
-																															<calltemplate subtype="named" match="BaseAddressTemplate">
-																																<parameters/>
-																															</calltemplate>
-																														</children>
-																														<variables/>
-																													</template>
-																												</children>
-																											</conditionbranch>
-																										</children>
-																									</condition>
 																								</children>
 																							</conditionbranch>
 																							<conditionbranch xpath="n1:customerVatStatus != &apos;PRIVATE_PERSON&apos; and exists(n1:customerVatData/n1:thirdStateTaxId)">
@@ -541,6 +463,22 @@
 																									</template>
 																									<newline/>
 																									<newline/>
+																								</children>
+																							</conditionbranch>
+																							<conditionbranch xpath="n1:customerVatStatus = &apos;PRIVATE_PERSON&apos;">
+																								<children>
+																									<calltemplate subtype="named" match="PrivatePersonTemplate_L10N">
+																										<parameters/>
+																									</calltemplate>
+																									<newline/>
+																								</children>
+																							</conditionbranch>
+																						</children>
+																					</condition>
+																					<condition>
+																						<children>
+																							<conditionbranch xpath="n1:customerVatStatus != &apos;PRIVATE_PERSON&apos;">
+																								<children>
 																									<condition>
 																										<children>
 																											<conditionbranch xpath="exists(n1:customerName)">
@@ -580,14 +518,6 @@
 																											</conditionbranch>
 																										</children>
 																									</condition>
-																								</children>
-																							</conditionbranch>
-																							<conditionbranch xpath="n1:customerVatStatus = &apos;PRIVATE_PERSON&apos;">
-																								<children>
-																									<calltemplate subtype="named" match="PrivatePersonTemplate_L10N">
-																										<parameters/>
-																									</calltemplate>
-																									<newline/>
 																								</children>
 																							</conditionbranch>
 																						</children>
@@ -2272,9 +2202,9 @@
 																										<children>
 																											<template subtype="element" match="n1:dataDescription">
 																												<children>
-																													<content subtype="regular">
-																														<styles font-weight="bold"/>
-																													</content>
+																													<calltemplate subtype="named" match="GenericZeroWidthWhitespaceOffset">
+																														<parameters/>
+																													</calltemplate>
 																												</children>
 																												<variables/>
 																											</template>
@@ -2283,7 +2213,9 @@
 																											<text fixtext="("/>
 																											<template subtype="element" match="n1:dataName">
 																												<children>
-																													<content subtype="regular"/>
+																													<calltemplate subtype="named" match="GenericZeroWidthWhitespaceOffset">
+																														<parameters/>
+																													</calltemplate>
 																												</children>
 																												<variables/>
 																											</template>
@@ -3589,6 +3521,7 @@
 																													<template subtype="element" match="n1:lineProductFeeContent">
 																														<children>
 																															<tgridrow>
+																																<styles keep-together="always"/>
 																																<children>
 																																	<tgridcell>
 																																		<styles border-style="none"/>
@@ -4263,7 +4196,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:orderNumbers)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4342,7 +4275,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:deliveryNotes)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4421,7 +4354,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:shippingDates)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4500,7 +4433,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:contractNumbers)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4579,7 +4512,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:supplierCompanyCodes)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4658,7 +4591,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:customerCompanyCodes)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4737,7 +4670,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:dealerCodes)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4816,7 +4749,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:costCenters)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4895,7 +4828,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:projectNumbers)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -4974,7 +4907,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:generalLedgerAccountNumbers)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -5053,7 +4986,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:glnNumbersSupplier)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -5132,7 +5065,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:glnNumbersCustomer)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -5211,7 +5144,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:materialNumbers)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -5290,7 +5223,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:itemNumbers)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -5369,7 +5302,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:conventionalLineInfo/n1:ekaerIds)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -5448,7 +5381,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="exists(n1:additionalLineData)">
-																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;" keep-together="always"/>
+																						<styles _xbackground-color="if ( n1:lineNumber mod 2 = 0 ) then &quot;#FFFFFF&quot; else &quot;#E8E8E8&quot;"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-left-color="black" border-left-width="1px" border-style="none"/>
@@ -5478,9 +5411,9 @@
 																																		<children>
 																																			<template subtype="element" match="n1:dataDescription">
 																																				<children>
-																																					<content subtype="regular">
-																																						<styles font-weight="bold"/>
-																																					</content>
+																																					<calltemplate subtype="named" match="GenericZeroWidthWhitespaceOffset">
+																																						<parameters/>
+																																					</calltemplate>
 																																				</children>
 																																				<variables/>
 																																			</template>
@@ -5489,7 +5422,9 @@
 																																			<text fixtext="("/>
 																																			<template subtype="element" match="n1:dataName">
 																																				<children>
-																																					<content subtype="regular"/>
+																																					<calltemplate subtype="named" match="GenericZeroWidthWhitespaceOffset">
+																																						<parameters/>
+																																					</calltemplate>
 																																				</children>
 																																				<variables/>
 																																			</template>
@@ -5536,7 +5471,7 @@
 																						</children>
 																					</tgridrow>
 																					<tgridrow conditional-processing="position() != last()">
-																						<styles height="5mm" keep-together="always"/>
+																						<styles height="5mm"/>
 																						<children>
 																							<tgridcell>
 																								<styles border-style="none"/>
@@ -8538,7 +8473,7 @@ if (month-from-date(.) = 01) then &apos;Januar&apos; else
 										</children>
 									</condition>
 									<text fixtext=": "/>
-									<autocalc xpath="n1:vatContent * 100">
+									<autocalc xpath="xs:decimal(n1:vatContent) * 100">
 										<styles font-weight="bold"/>
 									</autocalc>
 									<text fixtext=" %">
